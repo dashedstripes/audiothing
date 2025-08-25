@@ -4,6 +4,7 @@ import {defineType} from 'sanity'
 const news = defineType({
   type: 'document',
   name: 'news',
+  groups: [{title: 'Workflow', name: 'workflow'}],
   fields: [
     defineField({
       type: 'string',
@@ -35,6 +36,11 @@ const news = defineType({
       name: 'body',
       type: 'array',
       of: [{type: 'block'}],
+    }),
+    defineField({
+      name: 'workflow',
+      type: 'workflow',
+      group: 'workflow',
     }),
   ],
 })
