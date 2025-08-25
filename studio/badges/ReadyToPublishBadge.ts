@@ -1,7 +1,7 @@
-export function ReadyToPublishBadge(props) {
-  const status = props?.draft?.workflow?.status || null
+import {DocumentBadgeProps} from 'sanity'
 
-  if (status !== 'accepted') return null
+export function ReadyToPublishBadge(props: DocumentBadgeProps) {
+  if (props.published) return null
 
   return {
     label: 'Ready to Publish',

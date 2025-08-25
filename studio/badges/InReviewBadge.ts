@@ -1,8 +1,7 @@
-export function InReviewBadge(props) {
-  const status = props?.draft?.workflow?.status || null
+import {DocumentBadgeProps} from 'sanity'
 
-  if (status !== 'inReview') return null
-
+export function InReviewBadge(props: DocumentBadgeProps) {
+  if (props.published) return null
   return {
     label: 'In Review',
     color: 'warning',

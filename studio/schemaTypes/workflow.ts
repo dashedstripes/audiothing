@@ -10,14 +10,14 @@ const workflow = defineType({
       name: 'status',
       options: {
         list: [
-          {title: 'In Review', value: 'inReview'},
-          {title: 'Accepted', value: 'accepted'},
+          {title: 'In Review', value: 'review'},
+          {title: 'Approved', value: 'approved'},
         ],
       },
     }),
   ],
   initialValue: {
-    status: 'inReview',
+    status: 'review',
   },
 })
 
