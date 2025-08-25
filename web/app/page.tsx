@@ -5,17 +5,19 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function Home() {
-  const news = await sanityFetch({
+  const allNews = await sanityFetch({
     query: defineQuery(
       `
       *[_type == "news"] {
         _id,
         title,
+        slug,
         "image": mainImage,
         "imageUrl": mainImage.asset->url
       }
       `,
     ),
+    revalidate: 1,
   });
 
   return (
@@ -44,36 +46,36 @@ export default async function Home() {
           <p>audio production tips, techniques, reviews and news</p>
         </div>
         <div className="grid grid-cols-3 gap-4 mb-20">
-          {news.map((post) => (
+          {allNews.map((news) => (
             <Link
-              key={post._id}
-              href={`/posts/${post._id}`}
+              key={news._id}
+              href={`/news/${news?.slug?.current}`}
               className="relative group rounded"
             >
               <div className="relative">
                 <Image
                   width={400}
                   height={400}
-                  src={urlFor(post.image)
+                  src={urlFor(news.image)
                     .width(400)
                     .height(400)
                     .quality(20)
                     .url()}
-                  alt={post.image.alt}
+                  alt={news.image.alt}
                   className="w-full rounded-lg"
                 />
                 <Image
                   width={400}
                   height={400}
-                  src={urlFor(post.image).width(10).height(10).quality(1).url()}
-                  alt={post.image.alt}
+                  src={urlFor(news.image).width(10).height(10).quality(1).url()}
+                  alt={news.image.alt}
                   className="w-full blur-3xl absolute top-0 left-0 -z-10 group-hover:blur-2xl transition-all"
                 />
               </div>
               <div className="p-4 rounded-lg absolute bottom-0 h-full w-full left-0 flex flex-col justify-end group-hover:backdrop-blur backdrop-brightness-50 group-hover:backdrop-brightness-40 transition-all text-white">
                 <div>
                   <h6 className="uppercase text-xs">news</h6>
-                  <h3 className="font-bold text-lg">{post.title}</h3>
+                  <h3 className="font-bold text-lg">{news.title}</h3>
                 </div>
               </div>
             </Link>

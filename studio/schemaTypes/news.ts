@@ -11,6 +11,13 @@ const news = defineType({
       name: 'title',
     }),
     defineField({
+      type: 'slug',
+      name: 'slug',
+      options: {
+        source: (doc, context) => context.parent.title,
+      },
+    }),
+    defineField({
       name: 'mainImage',
       type: 'image',
       fields: [
