@@ -1,5 +1,27 @@
 @import "tailwindcss";
 
 * {
-    /*outline: 1px solid red;*/
+  /*outline: 1px solid red;*/
+}
+
+.article {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: bold;
+    @apply mb-2;
+  }
+
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  p {
+    margin-bottom: 2rem;
+  }
 }

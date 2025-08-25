@@ -17,7 +17,6 @@ export default async function Home() {
       }
       `,
     ),
-    revalidate: 1,
   });
 
   return (
