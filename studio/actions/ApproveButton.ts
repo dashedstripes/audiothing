@@ -6,7 +6,6 @@ export default function ApproveButton(props: DocumentActionProps) {
   const {patch, publish} = useDocumentOperation(props.id, props.type)
   const [isUpdating, setIsUpdating] = useState(false)
 
-  console.log(props)
   if (props?.draft?.workflow?.status != 'review') return null
 
   return {

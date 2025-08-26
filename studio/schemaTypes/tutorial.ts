@@ -1,9 +1,9 @@
 import {defineField} from 'sanity'
 import {defineType} from 'sanity'
 
-const news = defineType({
+const tutorial = defineType({
   type: 'document',
-  name: 'news',
+  name: 'tutorial',
   groups: [{title: 'Workflow', name: 'workflow'}],
   fields: [
     defineField({
@@ -40,9 +40,15 @@ const news = defineType({
       },
     }),
     defineField({
-      name: 'body',
+      name: 'steps',
       type: 'array',
-      of: [{type: 'block'}],
+      of: [
+        {
+          type: 'object',
+          name: 'step',
+          fields: [{type: 'array', name: 'details', of: [{type: 'block'}]}],
+        },
+      ],
     }),
     defineField({
       name: 'workflow',
@@ -52,4 +58,4 @@ const news = defineType({
   ],
 })
 
-export default news
+export default tutorial

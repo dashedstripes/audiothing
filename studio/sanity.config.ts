@@ -53,6 +53,10 @@ export default defineConfig({
                       .child(S.documentList().id('NewsAll').filter(`_type == "news"`)),
                   ]),
               ),
+            S.listItem()
+              .id('tutorials-list')
+              .title('Tutorials')
+              .child(S.documentTypeList('tutorial')),
           ])
       },
     }),
