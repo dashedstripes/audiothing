@@ -46,7 +46,13 @@ const tutorial = defineType({
         {
           type: 'object',
           name: 'step',
-          fields: [{type: 'array', name: 'details', of: [{type: 'block'}]}],
+          fields: [
+            {
+              type: 'string',
+              name: 'heading',
+            },
+            {type: 'array', name: 'details', of: [{type: 'block'}]},
+          ],
         },
       ],
     }),

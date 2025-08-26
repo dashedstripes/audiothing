@@ -4,16 +4,16 @@ import { defineQuery } from "next-sanity";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 
-export default async function NewsPage(props) {
+export default async function TutorialPage(props) {
   const { slug } = await props.params;
-  const news = await sanityFetch({
+  const tutorial = await sanityFetch({
     query: defineQuery(
       `
-      *[_type == "news" && slug.current == $slug][0] {
+      *[_type == "tutorial" && slug.current == $slug][0] {
         _id,
         title,
         slug,
-        body,
+        steps,
         "image": mainImage,
       }
       `,
@@ -44,7 +44,7 @@ export default async function NewsPage(props) {
       <div className="relative">
         <div
           style={{
-            backgroundImage: `url(${urlFor(news.image).width(500).height(200).quality(1).url()})`,
+            backgroundImage: `url(${urlFor(tutorial.image).width(500).height(200).quality(1).url()})`,
             backgroundSize: "cover",
             filter: "brightness(50%)",
           }}
@@ -53,15 +53,20 @@ export default async function NewsPage(props) {
         <div className="absolute top-0 left-0 w-full">
           <div className="container mx-auto w-[65ch] px-8 text-white">
             <div className="py-40 text-center">
-              <h4 className="uppercase text-gray-200">News</h4>
-              <h1 className="text-3xl font-bold">{news.title}</h1>
+              <h4 className="uppercase text-gray-200">Tutorial</h4>
+              <h1 className="text-3xl font-bold">{tutorial.title}</h1>
             </div>
           </div>
         </div>
       </div>
       <div className="container mx-auto p-8 w-[65ch]">
         <div className="article">
-          <PortableText value={news.body} />
+          {tutorial.steps.map((step, index) => (
+            <div key={step._key}>
+              <h3>Step {index + 1}</h3>
+              <PortableText value={step.details} />
+            </div>
+          ))}
         </div>
       </div>
     </div>

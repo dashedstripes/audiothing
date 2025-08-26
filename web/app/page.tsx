@@ -23,7 +23,6 @@ export default async function Home() {
       }
       `,
     ),
-    revalidate: 1,
   });
 
   return (
@@ -96,7 +95,7 @@ export default async function Home() {
               return (
                 <Link
                   key={post._id}
-                  href={`/news/${post?.slug?.current}`}
+                  href={`/tutorials/${post?.slug?.current}`}
                   className="relative group rounded"
                 >
                   <div className="relative">
