@@ -5,8 +5,12 @@ import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 
-export default async function NewsPage(props) {
-  const { slug } = await props.params;
+export default async function NewsPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
   const news = await sanityFetch({
     query: defineQuery(
       `

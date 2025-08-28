@@ -5,8 +5,12 @@ import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 
-export default async function TutorialPage(props) {
-  const { slug } = await props.params;
+export default async function TutorialPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
   const tutorial = await sanityFetch({
     query: defineQuery(
       `
