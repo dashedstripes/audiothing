@@ -16,9 +16,11 @@ export default async function Home() {
         _createdAt,
         _type == "news" => {
           "image": mainImage,
+          "lqip": mainImage.asset->.metadata.lqip
         },
         _type == "tutorial" => {
           "image": mainImage,
+          "lqip": mainImage.asset->.metadata.lqip
         }
       }
       `,
@@ -70,15 +72,12 @@ export default async function Home() {
                         .url()}
                       alt={post.image.alt}
                       className="w-full rounded-lg"
+                      placeholder={post.lqip}
                     />
                     <Image
                       width={400}
                       height={400}
-                      src={urlFor(post.image)
-                        .width(10)
-                        .height(10)
-                        .quality(1)
-                        .url()}
+                      src={post.lqip}
                       alt={post.image.alt}
                       className="w-full blur-3xl absolute top-0 left-0 -z-10 group-hover:blur-2xl transition-all"
                     />
@@ -113,11 +112,7 @@ export default async function Home() {
                     <Image
                       width={400}
                       height={400}
-                      src={urlFor(post.image)
-                        .width(10)
-                        .height(10)
-                        .quality(1)
-                        .url()}
+                      src={post.lqip}
                       alt={post.image.alt}
                       className="w-full blur-3xl absolute top-0 left-0 -z-10 group-hover:blur-2xl transition-all"
                     />
