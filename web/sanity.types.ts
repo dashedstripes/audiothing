@@ -13,6 +13,16 @@
  */
 
 // Source: schema.json
+export type Workflow = {
+  _id: string;
+  _type: "workflow";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  documentId?: string;
+  status?: "review" | "approved";
+};
+
 export type Tutorial = {
   _id: string;
   _type: "tutorial";
@@ -58,7 +68,6 @@ export type Tutorial = {
     _type: "step";
     _key: string;
   }>;
-  workflow?: Workflow;
 };
 
 export type News = {
@@ -101,12 +110,11 @@ export type News = {
     _type: "block";
     _key: string;
   }>;
-  workflow?: Workflow;
-};
-
-export type Workflow = {
-  _type: "workflow";
-  status?: "review" | "approved";
+  workflow?: {
+    documentId?: string;
+    status?: "review" | "approved";
+    _type: "workflow";
+  };
 };
 
 export type SanityAssistInstructionTask = {
@@ -348,5 +356,5 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Tutorial | News | Workflow | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Workflow | Tutorial | News | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;

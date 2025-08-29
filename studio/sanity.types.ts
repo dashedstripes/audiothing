@@ -13,6 +13,63 @@
  */
 
 // Source: schema.json
+export type Workflow = {
+  _id: string
+  _type: 'workflow'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  documentId?: string
+  status?: 'review' | 'approved'
+}
+
+export type Tutorial = {
+  _id: string
+  _type: 'tutorial'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  slug?: Slug
+  mainImage?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    imagePrompt?: string
+    alt?: string
+    _type: 'image'
+  }
+  steps?: Array<{
+    heading?: string
+    details?: Array<{
+      children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }>
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+      listItem?: 'bullet' | 'number'
+      markDefs?: Array<{
+        href?: string
+        _type: 'link'
+        _key: string
+      }>
+      level?: number
+      _type: 'block'
+      _key: string
+    }>
+    _type: 'step'
+    _key: string
+  }>
+}
+
 export type News = {
   _id: string
   _type: 'news'
@@ -53,12 +110,11 @@ export type News = {
     _type: 'block'
     _key: string
   }>
-  workflow?: Workflow
-}
-
-export type Workflow = {
-  _type: 'workflow'
-  status?: 'review' | 'approved'
+  workflow?: {
+    documentId?: string
+    status?: 'review' | 'approved'
+    _type: 'workflow'
+  }
 }
 
 export type SanityAssistInstructionTask = {
@@ -315,8 +371,9 @@ export type SanityAssetSourceData = {
 }
 
 export type AllSanitySchemaTypes =
-  | News
   | Workflow
+  | Tutorial
+  | News
   | SanityAssistInstructionTask
   | SanityAssistTaskStatus
   | SanityAssistSchemaTypeAnnotations

@@ -56,11 +56,6 @@ const tutorial = defineType({
         },
       ],
     }),
-    defineField({
-      name: 'workflow',
-      type: 'workflow',
-      group: 'workflow',
-    }),
   ],
 })
 

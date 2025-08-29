@@ -44,11 +44,6 @@ const news = defineType({
       type: 'array',
       of: [{type: 'block'}],
     }),
-    defineField({
-      name: 'workflow',
-      type: 'workflow',
-      group: 'workflow',
-    }),
   ],
 })
 
