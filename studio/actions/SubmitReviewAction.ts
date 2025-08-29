@@ -30,7 +30,7 @@ export default function SubmitReviewAction(props: DocumentActionProps) {
 
   return {
     label: 'Submit for Review',
-    disabled: loading,
+    disabled: loading || !props.draft,
     onHandle: async () => {
       setLoading(true)
       await client.createIfNotExists({
