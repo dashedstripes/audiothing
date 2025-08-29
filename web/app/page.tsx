@@ -1,11 +1,24 @@
+import { News, Tutorial } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/client";
 import { urlFor } from "@/sanity/sanityImageUrl";
+import { SanityAsset } from "@sanity/image-url/lib/types/types";
 import { defineQuery } from "next-sanity";
+import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import Link from "next/link";
 
+interface NewsWithImage extends News {
+  image: SanityAsset;
+  lqip: PlaceholderValue;
+}
+
+interface TutorialWIthImage extends Tutorial {
+  image: SanityAsset;
+  lqip: PlaceholderValue;
+}
+
 export default async function Home() {
-  const homePosts = await sanityFetch({
+  const homePosts: (NewsWithImage | TutorialWIthImage)[] = await sanityFetch({
     query: defineQuery(
       `
       *[_type in ["news", "tutorial"]] | order(_createdAt desc) [0...10] {
@@ -77,7 +90,7 @@ export default async function Home() {
                     <Image
                       width={400}
                       height={400}
-                      src={post.lqip}
+                      src={post.lqip as string}
                       alt={post.image.alt}
                       className="w-full blur-3xl absolute top-0 left-0 -z-10 group-hover:blur-2xl transition-all"
                     />
@@ -112,7 +125,7 @@ export default async function Home() {
                     <Image
                       width={400}
                       height={400}
-                      src={post.lqip}
+                      src={post.lqip as string}
                       alt={post.image.alt}
                       className="w-full blur-3xl absolute top-0 left-0 -z-10 group-hover:blur-2xl transition-all"
                     />

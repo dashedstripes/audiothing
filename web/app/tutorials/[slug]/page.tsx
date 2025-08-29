@@ -4,6 +4,14 @@ import { defineQuery } from "next-sanity";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
+import { Tutorial } from "@/sanity.types";
+import { SanityAsset } from "@sanity/image-url/lib/types/types";
+import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
+
+interface TutorialWIthImage extends Tutorial {
+  image: SanityAsset;
+  lqip: PlaceholderValue;
+}
 
 export default async function TutorialPage({
   params,
@@ -11,7 +19,7 @@ export default async function TutorialPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const tutorial = await sanityFetch({
+  const tutorial: TutorialWIthImage = await sanityFetch({
     query: defineQuery(
       `
       *[_type == "tutorial" && slug.current == $slug][0] {
@@ -53,7 +61,7 @@ export default async function TutorialPage({
             src={`${urlFor(tutorial.image).width(1000).height(200).quality(50).url()}`}
             width={500}
             height={500}
-            alt={tutorial.title}
+            alt={tutorial.title as string}
             placeholder={tutorial.lqip}
             className="w-full h-full top-0 left-0 absolute object-cover object-center"
           />
@@ -69,10 +77,10 @@ export default async function TutorialPage({
       </div>
       <div className="container mx-auto p-8 w-[65ch]">
         <div className="article">
-          {tutorial.steps.map((step, index) => (
+          {tutorial?.steps?.map((step, index) => (
             <div key={step._key}>
               <h3>Step {index + 1}</h3>
-              <PortableText value={step.details} />
+              {step.details && <PortableText value={step.details} />}
             </div>
           ))}
         </div>
