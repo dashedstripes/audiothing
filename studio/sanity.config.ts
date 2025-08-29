@@ -4,9 +4,7 @@ import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {assist} from '@sanity/assist'
 import {InReviewBadge} from './badges/InReviewBadge'
-import {ReadyToPublishBadge} from './badges/ReadyToPublishBadge'
-import PublishButton from './actions/PublishButton'
-import DeleteButton from './actions/DeleteButton'
+import SubmitReviewAction from './actions/SubmitReviewAction'
 
 export default defineConfig({
   name: 'default',
@@ -24,23 +22,13 @@ export default defineConfig({
   document: {
     actions: (prev, context) => {
       if (context.schemaType == 'news') {
-        return [
-          ...prev.map((originalAction) => {
-            if (originalAction.action == 'publish') {
-              return PublishButton
-            } else if (originalAction.action == 'delete') {
-              return DeleteButton
-            } else {
-              return originalAction
-            }
-          }),
-        ]
+        return [SubmitReviewAction, ...prev]
       } else {
         return prev
       }
     },
     badges: (prev, context) => {
-      return [InReviewBadge, ReadyToPublishBadge, ...prev]
+      return [InReviewBadge, ...prev]
     },
   },
 })
