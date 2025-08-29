@@ -67,7 +67,7 @@ export default async function TutorialPage({
           />
         </div>
         <div className="absolute top-0 left-0 w-full">
-          <div className="container mx-auto w-[65ch] px-8 text-white">
+          <div className="container mx-auto md:w-[65ch] px-8 text-white">
             <div className="py-40 text-center">
               <h4 className="uppercase text-gray-200">Tutorial</h4>
               <h1 className="text-3xl font-bold">{tutorial.title}</h1>
@@ -75,7 +75,7 @@ export default async function TutorialPage({
           </div>
         </div>
       </div>
-      <div className="container mx-auto p-8 w-[65ch]">
+      <div className="container mx-auto p-8 md:w-[65ch]">
         <div className="article">
           {tutorial?.steps?.map((step, index) => (
             <div key={step._key}>

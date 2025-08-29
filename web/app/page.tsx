@@ -65,7 +65,7 @@ export default async function Home() {
           </h1>
           <p>audio production tips, techniques, reviews and news</p>
         </div>
-        <div className="grid grid-cols-3 gap-4 mb-20">
+        <div className="grid md:grid-cols-3 gap-4 mb-20">
           {homePosts.map((post) => {
             if (post._type == "news") {
               return (
