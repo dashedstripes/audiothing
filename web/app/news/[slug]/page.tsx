@@ -67,7 +67,7 @@ export default async function NewsPage({
           </div>
         </div>
       </div>
-      <div className="container mx-auto p-8 ms:w-[65ch]">
+      <div className="container mx-auto p-8 md:w-[65ch]">
         <div className="article">
           <PortableText value={news.body} />
         </div>
