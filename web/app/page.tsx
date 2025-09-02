@@ -1,3 +1,4 @@
+import Header from "@/components/header";
 import { News, Tutorial } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/client";
 import { urlFor } from "@/sanity/sanityImageUrl";
@@ -42,22 +43,7 @@ export default async function Home() {
 
   return (
     <div>
-      <nav className="container mx-auto p-8 flex justify-between items-center">
-        <Link href="/">
-          <span className="font-bold">audio</span>thing
-        </Link>
-        <ul className="flex gap-4">
-          <li>
-            <Link href="/">tutorials</Link>
-          </li>
-          <li>
-            <Link href="/">reviews</Link>
-          </li>
-          <li>
-            <Link href="/">news</Link>
-          </li>
-        </ul>
-      </nav>
+      <Header />
       <div className="container mx-auto px-8">
         <div className="py-40 text-center">
           <h1>

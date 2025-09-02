@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Tutorial } from "@/sanity.types";
 import { SanityAsset } from "@sanity/image-url/lib/types/types";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
+import Header from "@/components/header";
 
 interface TutorialWIthImage extends Tutorial {
   image: SanityAsset;
@@ -39,22 +40,7 @@ export default async function TutorialPage({
 
   return (
     <div>
-      <nav className="container mx-auto p-8 flex justify-between items-center">
-        <Link href="/">
-          <span className="font-bold">audio</span>thing
-        </Link>
-        <ul className="flex gap-4">
-          <li>
-            <Link href="/">tutorials</Link>
-          </li>
-          <li>
-            <Link href="/">reviews</Link>
-          </li>
-          <li>
-            <Link href="/">news</Link>
-          </li>
-        </ul>
-      </nav>
+      <Header />
       <div className="relative">
         <div className="w-full h-[400px] relative overflow-hidden">
           <Image
