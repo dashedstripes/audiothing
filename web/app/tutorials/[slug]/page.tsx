@@ -1,7 +1,6 @@
 import { sanityFetch } from "@/sanity/client";
 import { urlFor } from "@/sanity/sanityImageUrl";
 import { defineQuery } from "next-sanity";
-import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import { Tutorial } from "@/sanity.types";
