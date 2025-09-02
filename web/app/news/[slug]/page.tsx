@@ -9,7 +9,7 @@ export async function generateStaticParams() {
   const news = await sanityFetch({
     query: defineQuery(
       `
-      *[_type == "news"] | order(_createdAt desc)[0..5] {
+      *[_type == "news"] | order(_createdAt desc)[0..11] {
         slug,
       }
       `,

@@ -17,7 +17,7 @@ export async function generateStaticParams() {
   const news = await sanityFetch({
     query: defineQuery(
       `
-      *[_type == "tutorial"] | order(_createdAt desc)[0..5] {
+      *[_type == "tutorial"] | order(_createdAt desc)[0..11] {
         slug,
       }
       `,

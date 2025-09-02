@@ -21,7 +21,7 @@ export default function PostsChunk({
     const data = await sanityFetch({
       query: defineQuery(
         `
-        *[_type in ["news", "tutorial"] && _createdAt < $lastCreatedAt] | order(_createdAt desc)[0..5] {
+        *[_type in ["news", "tutorial"] && _createdAt < $lastCreatedAt] | order(_createdAt desc)[0..11] {
           _id,
           _type,
           title,
