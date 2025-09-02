@@ -22,7 +22,7 @@ export default async function Home() {
   const homePosts: (NewsWithImage | TutorialWIthImage)[] = await sanityFetch({
     query: defineQuery(
       `
-      *[_type in ["news", "tutorial"]] | order(_createdAt desc) [0...11] {
+      *[_type in ["news", "tutorial"]] | order(_createdAt desc) [0...12] {
         _id,
         _type,
         title,
