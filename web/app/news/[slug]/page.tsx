@@ -5,6 +5,22 @@ import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import Header from "@/components/header";
 
+export async function generateStaticParams() {
+  const news = await sanityFetch({
+    query: defineQuery(
+      `
+      *[_type == "news"][0..2] | order(_createdAt desc) {
+        slug,
+      }
+      `,
+    ),
+  });
+
+  return news.map((item: { slug: { current: string } }) => ({
+    slug: item.slug.current,
+  }));
+}
+
 export default async function NewsPage({
   params,
 }: {
