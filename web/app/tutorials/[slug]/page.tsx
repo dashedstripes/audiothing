@@ -13,6 +13,22 @@ interface TutorialWIthImage extends Tutorial {
   lqip: PlaceholderValue;
 }
 
+export async function generateStaticParams() {
+  const news = await sanityFetch({
+    query: defineQuery(
+      `
+      *[_type == "tutorial"] | order(_createdAt desc)[0..5] {
+        slug,
+      }
+      `,
+    ),
+  });
+
+  return news.map((item: { slug: { current: string } }) => ({
+    slug: item.slug.current,
+  }));
+}
+
 export default async function TutorialPage({
   params,
 }: {
