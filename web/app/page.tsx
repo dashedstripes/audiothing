@@ -1,42 +1,16 @@
 import Header from "@/components/header";
 import PostsChunk from "@/components/posts-chunk";
-import { News, Tutorial } from "@/sanity.types";
+import { HOME_POST_CHUNKResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/client";
-import { SanityAsset } from "@sanity/image-url/lib/types/types";
+import { HOME_POST_CHUNK } from "@/sanity/queries";
 import { defineQuery } from "next-sanity";
-import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
-
-export interface NewsWithImage extends News {
-  image: SanityAsset;
-  lqip: PlaceholderValue;
-}
-
-export interface TutorialWIthImage extends Tutorial {
-  image: SanityAsset;
-  lqip: PlaceholderValue;
-}
 
 export default async function Home() {
-  const posts: (NewsWithImage | TutorialWIthImage)[] = await sanityFetch({
-    query: defineQuery(
-      `
-      *[_type in ["news", "tutorial"]] | order(_createdAt desc) [0..11] {
-        _id,
-        _type,
-        title,
-        slug,
-        _createdAt,
-        _type == "news" => {
-          "image": mainImage,
-          "lqip": mainImage.asset->.metadata.lqip
-        },
-        _type == "tutorial" => {
-          "image": mainImage,
-          "lqip": mainImage.asset->.metadata.lqip
-        }
-      }
-      `,
-    ),
+  const posts: HOME_POST_CHUNKResult = await sanityFetch({
+    query: defineQuery(HOME_POST_CHUNK),
+    params: {
+      lastCreatedAt: null,
+    },
   });
 
   return (

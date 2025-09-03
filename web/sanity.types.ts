@@ -358,3 +358,57 @@ export type SanityAssetSourceData = {
 
 export type AllSanitySchemaTypes = Workflow | Tutorial | News | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./sanity/queries.ts
+// Variable: HOME_POST_CHUNK
+// Query: *[_type in ["news", "tutorial"] && _createdAt < $lastCreatedAt] | order(_createdAt desc)[0..11] {  _id,  _type,  title,  slug,  _createdAt,  _type == "news" => {    "image": mainImage,    "lqip": mainImage.asset->.metadata.lqip  },  _type == "tutorial" => {    "image": mainImage,    "lqip": mainImage.asset->.metadata.lqip  }}
+export type HOME_POST_CHUNKResult = Array<{
+  _id: string;
+  _type: "news";
+  title: string | null;
+  slug: Slug | null;
+  _createdAt: string;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    imagePrompt?: string;
+    alt?: string;
+    _type: "image";
+  } | null;
+  lqip: string | null;
+} | {
+  _id: string;
+  _type: "tutorial";
+  title: string | null;
+  slug: Slug | null;
+  _createdAt: string;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    imagePrompt?: string;
+    alt?: string;
+    _type: "image";
+  } | null;
+  lqip: string | null;
+}>;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    "\n*[_type in [\"news\", \"tutorial\"] && _createdAt < $lastCreatedAt] | order(_createdAt desc)[0..11] {\n  _id,\n  _type,\n  title,\n  slug,\n  _createdAt,\n  _type == \"news\" => {\n    \"image\": mainImage,\n    \"lqip\": mainImage.asset->.metadata.lqip\n  },\n  _type == \"tutorial\" => {\n    \"image\": mainImage,\n    \"lqip\": mainImage.asset->.metadata.lqip\n  }\n}\n": HOME_POST_CHUNKResult;
+  }
+}

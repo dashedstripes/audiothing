@@ -1,43 +1,27 @@
 "use client";
 
-import { NewsWithImage, TutorialWIthImage } from "@/app/page";
 import NewsCard from "./news-card";
 import TutorialCard from "./tutorial-card";
 import { useState } from "react";
 import { sanityFetch } from "@/sanity/client";
 import { defineQuery } from "next-sanity";
 import PlaceholderCard from "./placeholder-card";
+import { HOME_POST_CHUNK } from "@/sanity/queries";
+import { HOME_POST_CHUNKResult } from "@/sanity.types";
+import { SanityAsset } from "@sanity/image-url/lib/types/types";
+import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 
 export default function PostsChunk({
   initialPosts,
 }: {
-  initialPosts: (NewsWithImage | TutorialWIthImage)[];
+  initialPosts: HOME_POST_CHUNKResult;
 }) {
-  const [posts, setPosts] =
-    useState<(NewsWithImage | TutorialWIthImage)[]>(initialPosts);
+  const [posts, setPosts] = useState<HOME_POST_CHUNKResult>(initialPosts);
   const [loading, setLoading] = useState(false);
 
   async function fetchMorePosts(lastCreatedAt: string) {
-    const data = await sanityFetch({
-      query: defineQuery(
-        `
-        *[_type in ["news", "tutorial"] && _createdAt < $lastCreatedAt] | order(_createdAt desc)[0..11] {
-          _id,
-          _type,
-          title,
-          slug,
-          _createdAt,
-          _type == "news" => {
-            "image": mainImage,
-            "lqip": mainImage.asset->.metadata.lqip
-          },
-          _type == "tutorial" => {
-            "image": mainImage,
-            "lqip": mainImage.asset->.metadata.lqip
-          }
-        }
-        `,
-      ),
+    const data: HOME_POST_CHUNKResult = await sanityFetch({
+      query: defineQuery(HOME_POST_CHUNK),
       params: {
         lastCreatedAt,
       },
@@ -56,9 +40,9 @@ export default function PostsChunk({
                 key={post._id}
                 slug={post.slug?.current as string}
                 title={post.title as string}
-                image={post.image}
-                imageAlt={post.image.alt}
-                lqip={post.lqip}
+                image={post.image as SanityAsset}
+                imageAlt={post.image?.alt as string}
+                lqip={post.lqip as PlaceholderValue}
               />
             );
           } else if (post._type == "tutorial") {
@@ -67,9 +51,9 @@ export default function PostsChunk({
                 key={post._id}
                 slug={post.slug?.current as string}
                 title={post.title as string}
-                image={post.image}
-                imageAlt={post.image.alt}
-                lqip={post.lqip}
+                image={post.image as SanityAsset}
+                imageAlt={post.image?.alt as string}
+                lqip={post.lqip as PlaceholderValue}
               />
             );
           } else {
