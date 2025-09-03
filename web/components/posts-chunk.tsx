@@ -2,7 +2,7 @@
 
 import NewsCard from "./news-card";
 import TutorialCard from "./tutorial-card";
-import { use, useState } from "react";
+import { useState } from "react";
 import { sanityFetch } from "@/sanity/client";
 import { defineQuery } from "next-sanity";
 import PlaceholderCard from "./placeholder-card";
