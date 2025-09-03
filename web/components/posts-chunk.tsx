@@ -2,7 +2,7 @@
 
 import NewsCard from "./news-card";
 import TutorialCard from "./tutorial-card";
-import { useState } from "react";
+import { use, useState } from "react";
 import { sanityFetch } from "@/sanity/client";
 import { defineQuery } from "next-sanity";
 import PlaceholderCard from "./placeholder-card";
@@ -11,6 +11,8 @@ import { HOME_POST_CHUNKResult } from "@/sanity.types";
 import { SanityAsset } from "@sanity/image-url/lib/types/types";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 
+const CHUNK_SIZE = 12;
+
 export default function PostsChunk({
   initialPosts,
 }: {
@@ -18,6 +20,7 @@ export default function PostsChunk({
 }) {
   const [posts, setPosts] = useState<HOME_POST_CHUNKResult>(initialPosts);
   const [loading, setLoading] = useState(false);
+  const [showButton, setShowButton] = useState(true);
 
   async function fetchMorePosts(lastCreatedAt: string) {
     const data: HOME_POST_CHUNKResult = await sanityFetch({
@@ -26,6 +29,10 @@ export default function PostsChunk({
         lastCreatedAt,
       },
     });
+
+    if (data.length < CHUNK_SIZE) {
+      setShowButton(false);
+    }
 
     setPosts((posts) => [...posts, ...data]);
   }
@@ -71,18 +78,20 @@ export default function PostsChunk({
           </>
         )}
       </div>
-      <div className="flex justify-center">
-        <button
-          onClick={async () => {
-            setLoading(true);
-            await fetchMorePosts(posts[posts.length - 1]._createdAt);
-            setLoading(false);
-          }}
-          className="bg-black px-3 py-1 text-white cursor-pointer rounded hover:shadow-2xl transition-all"
-        >
-          Show More
-        </button>
-      </div>
+      {showButton && (
+        <div className="flex justify-center">
+          <button
+            onClick={async () => {
+              setLoading(true);
+              await fetchMorePosts(posts[posts.length - 1]._createdAt);
+              setLoading(false);
+            }}
+            className="bg-black px-3 py-1 text-white cursor-pointer rounded hover:shadow-2xl transition-all"
+          >
+            Show More
+          </button>
+        </div>
+      )}
     </div>
   );
 }
