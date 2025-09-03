@@ -1,6 +1,6 @@
 [
   {
-    "name": "workflow",
+    "name": "banner",
     "type": "document",
     "attributes": {
       "_id": {
@@ -13,7 +13,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "string",
-          "value": "workflow"
+          "value": "banner"
         }
       },
       "_createdAt": {
@@ -34,27 +34,17 @@
           "type": "string"
         }
       },
-      "documentId": {
+      "title": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
         "optional": true
       },
-      "status": {
+      "subtitle": {
         "type": "objectAttribute",
         "value": {
-          "type": "union",
-          "of": [
-            {
-              "type": "string",
-              "value": "review"
-            },
-            {
-              "type": "string",
-              "value": "approved"
-            }
-          ]
+          "type": "string"
         },
         "optional": true
       }
@@ -722,44 +712,65 @@
           }
         },
         "optional": true
-      },
-      "workflow": {
+      }
+    }
+  },
+  {
+    "name": "workflow",
+    "type": "document",
+    "attributes": {
+      "_id": {
         "type": "objectAttribute",
         "value": {
-          "type": "object",
-          "attributes": {
-            "documentId": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "workflow"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "documentId": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "status": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "review"
             },
-            "status": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "union",
-                "of": [
-                  {
-                    "type": "string",
-                    "value": "review"
-                  },
-                  {
-                    "type": "string",
-                    "value": "approved"
-                  }
-                ]
-              },
-              "optional": true
-            },
-            "_type": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string",
-                "value": "workflow"
-              }
+            {
+              "type": "string",
+              "value": "approved"
             }
-          }
+          ]
         },
         "optional": true
       }

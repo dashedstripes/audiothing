@@ -17,3 +17,5 @@ export const HOME_POST_CHUNK = groq`
   }
 }
 `;
+
+export const BANNERS = groq`*[_type == "banner"] { _id, title, subtitle }`;

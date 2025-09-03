@@ -13,14 +13,14 @@
  */
 
 // Source: schema.json
-export type Workflow = {
+export type Banner = {
   _id: string;
-  _type: "workflow";
+  _type: "banner";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  documentId?: string;
-  status?: "review" | "approved";
+  title?: string;
+  subtitle?: string;
 };
 
 export type Tutorial = {
@@ -110,11 +110,16 @@ export type News = {
     _type: "block";
     _key: string;
   }>;
-  workflow?: {
-    documentId?: string;
-    status?: "review" | "approved";
-    _type: "workflow";
-  };
+};
+
+export type Workflow = {
+  _id: string;
+  _type: "workflow";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  documentId?: string;
+  status?: "review" | "approved";
 };
 
 export type SanityAssistInstructionTask = {
@@ -356,11 +361,11 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Workflow | Tutorial | News | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Banner | Tutorial | News | Workflow | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/queries.ts
 // Variable: HOME_POST_CHUNK
-// Query: *[_type in ["news", "tutorial"] && _createdAt < $lastCreatedAt] | order(_createdAt desc)[0..11] {  _id,  _type,  title,  slug,  _createdAt,  _type == "news" => {    "image": mainImage,    "lqip": mainImage.asset->.metadata.lqip  },  _type == "tutorial" => {    "image": mainImage,    "lqip": mainImage.asset->.metadata.lqip  }}
+// Query: *[_type in ["news", "tutorial"] && ($lastCreatedAt == null || _createdAt < $lastCreatedAt)] | order(_createdAt desc)[0..11] {  _id,  _type,  title,  slug,  _createdAt,  _type == "news" => {    "image": mainImage,    "lqip": mainImage.asset->.metadata.lqip  },  _type == "tutorial" => {    "image": mainImage,    "lqip": mainImage.asset->.metadata.lqip  }}
 export type HOME_POST_CHUNKResult = Array<{
   _id: string;
   _type: "news";
@@ -404,11 +409,19 @@ export type HOME_POST_CHUNKResult = Array<{
   } | null;
   lqip: string | null;
 }>;
+// Variable: BANNERS
+// Query: *[_type == "banner"] { _id, title, subtitle }
+export type BANNERSResult = Array<{
+  _id: string;
+  title: string | null;
+  subtitle: string | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n*[_type in [\"news\", \"tutorial\"] && _createdAt < $lastCreatedAt] | order(_createdAt desc)[0..11] {\n  _id,\n  _type,\n  title,\n  slug,\n  _createdAt,\n  _type == \"news\" => {\n    \"image\": mainImage,\n    \"lqip\": mainImage.asset->.metadata.lqip\n  },\n  _type == \"tutorial\" => {\n    \"image\": mainImage,\n    \"lqip\": mainImage.asset->.metadata.lqip\n  }\n}\n": HOME_POST_CHUNKResult;
+    "\n*[_type in [\"news\", \"tutorial\"] && ($lastCreatedAt == null || _createdAt < $lastCreatedAt)] | order(_createdAt desc)[0..11] {\n  _id,\n  _type,\n  title,\n  slug,\n  _createdAt,\n  _type == \"news\" => {\n    \"image\": mainImage,\n    \"lqip\": mainImage.asset->.metadata.lqip\n  },\n  _type == \"tutorial\" => {\n    \"image\": mainImage,\n    \"lqip\": mainImage.asset->.metadata.lqip\n  }\n}\n": HOME_POST_CHUNKResult;
+    "*[_type == \"banner\"] { _id, title, subtitle }": BANNERSResult;
   }
 }
