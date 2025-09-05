@@ -1,7 +1,7 @@
 import { groq } from "next-sanity";
 
 export const HOME_POST_CHUNK = groq`
-*[_type in ["news", "tutorial"]  && ($language == null || language == $language) && ($lastCreatedAt == null || _createdAt < $lastCreatedAt)] | order(_createdAt desc)[0..11] {
+*[_type in ["news", "tutorial"] && (!defined(language) || language == $language) && ($lastCreatedAt == null || _createdAt < $lastCreatedAt)] | order(_createdAt desc)[0..11] {
   _id,
   _type,
   title,
