@@ -15,8 +15,10 @@ const CHUNK_SIZE = 12;
 
 export default function PostsChunk({
   initialPosts,
+  language,
 }: {
   initialPosts: HOME_POST_CHUNKResult;
+  language: string;
 }) {
   const [posts, setPosts] = useState<HOME_POST_CHUNKResult>(initialPosts);
   const [loading, setLoading] = useState(false);
@@ -27,6 +29,7 @@ export default function PostsChunk({
       query: defineQuery(HOME_POST_CHUNK),
       params: {
         lastCreatedAt,
+        language,
       },
     });
 

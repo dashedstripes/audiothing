@@ -29,7 +29,7 @@ export default async function Home(props: {
           </h1>
           <p>audio production tips, techniques, reviews and news</p>
         </div>
-        <PostsChunk initialPosts={posts} />
+        <PostsChunk initialPosts={posts} language={lang} />
       </div>
     </div>
   );
