@@ -1,5 +1,6 @@
 import {defineField} from 'sanity'
 import {defineType} from 'sanity'
+import {isUniqueOtherThanLanguage} from '../utils'
 
 const news = defineType({
   type: 'document',
@@ -15,6 +16,7 @@ const news = defineType({
       name: 'slug',
       options: {
         source: 'title',
+        isUnique: isUniqueOtherThanLanguage,
       },
     }),
     defineField({
@@ -44,7 +46,18 @@ const news = defineType({
       type: 'array',
       of: [{type: 'block'}],
     }),
+    defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+    }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'language',
+    },
+  },
 })
 
 export default news

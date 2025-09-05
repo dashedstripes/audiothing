@@ -5,6 +5,7 @@ import {schemaTypes} from './schemaTypes'
 import {assist} from '@sanity/assist'
 import {assumeRole} from './plugins/assumeRole'
 import {workflows} from './plugins/workflows'
+import {documentInternationalization} from '@sanity/document-internationalization'
 
 export default defineConfig({
   name: 'default',
@@ -16,9 +17,23 @@ export default defineConfig({
   plugins: [
     structureTool(),
     visionTool(),
-    assist(),
+    assist({
+      translate: {
+        document: {
+          languageField: 'language',
+          documentTypes: ['news'],
+        },
+      },
+    }),
     assumeRole([]),
     workflows(['news', 'tutorial']),
+    documentInternationalization({
+      supportedLanguages: [
+        {id: 'en', title: 'English'},
+        {id: 'es', title: 'Spanish'},
+      ],
+      schemaTypes: ['news'],
+    }),
   ],
 
   schema: {
