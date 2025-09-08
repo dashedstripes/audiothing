@@ -13,6 +13,7 @@ defaults:
 jobs:
   deploy-sanity:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
