@@ -12,7 +12,7 @@ export default defineConfig({
   title: 'AudioThing',
 
   projectId: 'n3ipr1xb',
-  dataset: 'development',
+  dataset: 'production',
 
   plugins: [
     structureTool(),
