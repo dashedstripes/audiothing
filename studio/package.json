@@ -17,20 +17,20 @@
   "dependencies": {
     "@sanity/assist": "^5.0.0",
     "@sanity/document-internationalization": "^4.0.0",
-    "@sanity/vision": "^4.6.1",
+    "@sanity/vision": "^4.7.0",
     "react": "^19.1",
     "react-dom": "^19.1",
-    "sanity": "^4.6.1",
+    "sanity": "^4.7.0",
     "styled-components": "^6.1.18"
   },
   "devDependencies": {
     "@sanity/blueprints": "0.2.0",
     "@sanity/eslint-config-studio": "^5.0.2",
+    "@sanity/functions": "1.0.3",
     "@types/react": "^19.1",
     "eslint": "^9.28",
     "prettier": "^3.5",
-    "typescript": "^5.8",
-    "@sanity/functions": "1.0.3"
+    "typescript": "^5.8"
   },
   "prettier": {
     "semi": false,

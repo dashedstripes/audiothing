@@ -12,7 +12,7 @@ export default defineConfig({
   title: 'AudioThing',
 
   projectId: 'n3ipr1xb',
-  dataset: 'production',
+  dataset: process.env.SANITY_STUDIO_DATASET!,
 
   plugins: [
     structureTool(),
