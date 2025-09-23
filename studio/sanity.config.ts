@@ -25,7 +25,7 @@ export default defineConfig({
         },
       },
     }),
-    assumeRole([]),
+    assumeRole([{title: 'writer', name: 'Writer'}]),
     workflows(['news', 'tutorial']),
     documentInternationalization({
       supportedLanguages: [
