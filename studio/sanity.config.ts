@@ -7,6 +7,7 @@ import {assumeRole} from './plugins/assumeRole'
 import {workflows} from './plugins/workflows'
 import {documentInternationalization} from '@sanity/document-internationalization'
 import {feedback} from './plugins/feedback'
+import linear from './plugins/feedback/integrations/linear'
 
 export default defineConfig({
   name: 'default',
@@ -37,6 +38,7 @@ export default defineConfig({
     }),
     feedback({
       onCreate: (document) => console.log(document),
+      integrations: [linear({})],
     }),
   ],
 
