@@ -6,6 +6,7 @@ import {assist} from '@sanity/assist'
 import {assumeRole} from './plugins/assumeRole'
 import {workflows} from './plugins/workflows'
 import {documentInternationalization} from '@sanity/document-internationalization'
+import {feedback} from './plugins/feedback'
 
 export default defineConfig({
   name: 'default',
@@ -33,6 +34,9 @@ export default defineConfig({
         {id: 'es', title: 'Spanish'},
       ],
       schemaTypes: ['news'],
+    }),
+    feedback({
+      onCreate: (document) => console.log(document),
     }),
   ],
 
