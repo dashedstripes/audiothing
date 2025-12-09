@@ -39,6 +39,7 @@ export default defineConfig({
     feedback({
       onCreate: (document) => console.log(document),
       integrations: [linear({})],
+      integrationOnly: true,
     }),
   ],
 

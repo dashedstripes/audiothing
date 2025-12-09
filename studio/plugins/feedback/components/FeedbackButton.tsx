@@ -3,7 +3,7 @@ import {EnvelopeIcon} from '@sanity/icons'
 import {useCallback, useState} from 'react'
 import {useClient, useCurrentUser} from 'sanity'
 
-export default function FeedbackButton({onCreate}) {
+export default function FeedbackButton({onCreate, integrationOnly}) {
   const [value, setValue] = useState('')
   const [open, setOpen] = useState(false)
   const onClose = useCallback(() => setOpen(false), [])
@@ -20,22 +20,36 @@ export default function FeedbackButton({onCreate}) {
 
     setIsSubmitting(true)
     try {
-      // Create the document
-      const result = await client.create({
-        _type: 'devRequest', // Change this to your document type
-        message: value,
-        url: window.location.href || '',
-        createdAt: new Date().toISOString(),
-        submittedBy: {
-          id: currentUser?.id,
-          name: currentUser?.name,
-          email: currentUser?.email,
-        },
-      })
+      if (!integrationOnly) {
+        // Create the document
+        const result = await client.create({
+          _type: 'devRequest',
+          message: value,
+          url: window.location.href || '',
+          createdAt: new Date().toISOString(),
+          submittedBy: {
+            id: currentUser?.id,
+            name: currentUser?.name,
+            email: currentUser?.email,
+          },
+        })
 
-      console.log('Document created:', result)
+        console.log('Document created:', result)
 
-      onCreate(result)
+        onCreate(result)
+      } else {
+        onCreate({
+          _type: 'devRequest',
+          message: value,
+          url: window.location.href || '',
+          createdAt: new Date().toISOString(),
+          submittedBy: {
+            id: currentUser?.id,
+            name: currentUser?.name,
+            email: currentUser?.email,
+          },
+        })
+      }
 
       // Clear form and close dialog
       setValue('')
