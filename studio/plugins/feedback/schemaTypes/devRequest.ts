@@ -47,6 +47,22 @@ const devRequest = defineType({
       type: 'datetime',
       readOnly: true,
     }),
+    defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'New', value: 'new'},
+          {title: 'In Progress', value: 'in_progress'},
+          {title: 'Under Review', value: 'under_review'},
+          {title: 'Completed', value: 'completed'},
+          {title: 'Rejected', value: 'rejected'},
+        ],
+      },
+      initialValue: 'new',
+      validation: (Rule) => Rule.required(),
+    }),
   ],
   preview: {
     select: {

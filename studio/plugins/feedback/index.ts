@@ -1,4 +1,4 @@
-import {definePlugin} from 'sanity'
+import {definePlugin, SanityDocumentLike} from 'sanity'
 import FeedbackLayout from './components/FeedbackLayout'
 import devRequest from './schemaTypes/devRequest'
 
@@ -11,7 +11,7 @@ export const feedback = ({
   integrations: [{onCreate: (document: any) => Promise<void>}]
   integrationOnly?: boolean
 }) => {
-  async function internalOnCreate(document) {
+  async function internalOnCreate(document: SanityDocumentLike) {
     onCreate(document)
 
     integrations.forEach(async (integration) => {

@@ -15,6 +15,8 @@ export default function FeedbackButton({onCreate, integrationOnly}) {
 
   const currentUser = useCurrentUser()
 
+  const currentURL = window.location.href || ''
+
   async function submit() {
     if (!value) return
 
@@ -25,7 +27,7 @@ export default function FeedbackButton({onCreate, integrationOnly}) {
         const result = await client.create({
           _type: 'devRequest',
           message: value,
-          url: window.location.href || '',
+          url: currentURL,
           createdAt: new Date().toISOString(),
           submittedBy: {
             id: currentUser?.id,
@@ -41,7 +43,7 @@ export default function FeedbackButton({onCreate, integrationOnly}) {
         onCreate({
           _type: 'devRequest',
           message: value,
-          url: window.location.href || '',
+          url: currentURL,
           createdAt: new Date().toISOString(),
           submittedBy: {
             id: currentUser?.id,
@@ -97,9 +99,10 @@ export default function FeedbackButton({onCreate, integrationOnly}) {
           header={
             <Stack padding={2} space={[4]}>
               <Text weight="semibold">Contact Your Development Team</Text>
-              <Text muted={true}>
+              <Text muted={true} size={1}>
                 Use this form to report issues or request features from the team that manages your
-                Sanity setup
+                Sanity setup. Describe what you need and how it impacts your work to help your dev
+                team prioritize and address your request.
               </Text>
             </Stack>
           }
@@ -108,7 +111,7 @@ export default function FeedbackButton({onCreate, integrationOnly}) {
           zOffset={1000}
           width={[1]}
         >
-          <Box padding={4}>
+          <Stack paddingY={0} paddingX={4} paddingBottom={4} space={4}>
             <TextArea
               fontSize={[1]}
               onChange={(event) => setValue(event.currentTarget.value)}
@@ -116,7 +119,12 @@ export default function FeedbackButton({onCreate, integrationOnly}) {
               placeholder="Describe the issue or feature you'd like your development team to address..."
               value={value}
             />
-            <Card paddingTop={[4]}>
+            {currentURL && (
+              <Text size={1} muted={true}>
+                The current URL will be shared with your Dev Team ({currentURL})
+              </Text>
+            )}
+            <Card>
               <Button
                 fontSize={[1]}
                 padding={[3]}
@@ -129,7 +137,7 @@ export default function FeedbackButton({onCreate, integrationOnly}) {
                 loading={isSubmitting}
               />
             </Card>
-          </Box>
+          </Stack>
         </Dialog>
       )}
     </div>
