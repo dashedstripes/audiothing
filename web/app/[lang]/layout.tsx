@@ -4,6 +4,9 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import Banner from "@/components/banner";
 import { SanityLive } from "@/sanity/live";
+import { VisualEditing } from "next-sanity/visual-editing";
+import { draftMode } from "next/headers";
+import { DisableDraftMode } from "@/components/disable-draft-mode";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,11 +23,13 @@ export const metadata: Metadata = {
   description: "audio production tips, techniques, reviews and news",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isDraftMode = (await draftMode()).isEnabled;
+
   return (
     <html lang="en">
       <body
@@ -33,6 +38,12 @@ export default function RootLayout({
         <Banner />
         {children}
         <SanityLive />
+        {isDraftMode && (
+          <>
+            <DisableDraftMode />
+            <VisualEditing />
+          </>
+        )}
         <Footer />
       </body>
     </html>

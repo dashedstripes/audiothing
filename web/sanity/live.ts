@@ -1,6 +1,7 @@
 // src/sanity/lib/live.ts
 
-import { createClient, defineLive } from "next-sanity";
+import { createClient } from "next-sanity";
+import { defineLive } from "next-sanity/live";
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
