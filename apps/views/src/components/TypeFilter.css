@@ -1,8 +1,11 @@
 /* ==========================================================================
-   Type Filter - Pill Navigation
+   Type Filter - Compact Pill Navigation
    ========================================================================== */
 
 .type-filter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
   animation: filterReveal var(--duration-slow) var(--ease-out) both;
   animation-delay: 200ms;
 }
@@ -10,7 +13,7 @@
 @keyframes filterReveal {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -19,20 +22,20 @@
 }
 
 .type-filter-label {
-  display: block;
-  margin-bottom: var(--space-md);
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--color-ink-faded);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .type-filter-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
 }
 
 /* ==========================================================================
@@ -43,14 +46,14 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-lg);
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-md);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   background-color: transparent;
   color: var(--color-ink-light);
   font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   cursor: pointer;
   transition:
@@ -139,14 +142,20 @@
    ========================================================================== */
 
 @media (max-width: 640px) {
+  .type-filter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
   .type-filter-button {
-    padding: var(--space-xs) var(--space-md);
-    font-size: 0.8125rem;
+    padding: 4px var(--space-sm);
+    font-size: 0.75rem;
   }
 
   .type-filter-count {
-    min-width: 1.125rem;
-    height: 1.125rem;
-    font-size: 0.625rem;
+    min-width: 1rem;
+    height: 1rem;
+    font-size: 0.5625rem;
   }
 }
