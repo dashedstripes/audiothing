@@ -30,8 +30,8 @@ export function AllDocumentsList({ perspective }: AllDocumentsListProps) {
 
   const { data, isPending } = useQuery<QueryResult>({
     query: `{
-      "items": *[!(_id in path("_.**")) && !(_type match "system.*")] | order(_updatedAt desc) [$start...$end] { _id, _type },
-      "total": count(*[!(_id in path("_.**")) && !(_type match "system.*")])
+      "items": *[!(_id in path("_.**")) && !(_type match "system.*") && !(_type match "sanity.*")] | order(_updatedAt desc) [$start...$end] { _id, _type },
+      "total": count(*[!(_id in path("_.**")) && !(_type match "system.*") && !(_type match "sanity.*")])
     }`,
     params: { start, end },
     perspective,

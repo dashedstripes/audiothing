@@ -12,9 +12,9 @@ export function TypeFilter({ selectedType, onTypeChange }: TypeFilterProps) {
     query: `array::unique(*[]._type)`,
   })
 
-  // Filter out system types (starting with _ or system.)
+  // Filter out system types (starting with _, system., or sanity.)
   const userTypes = (types ?? []).filter(
-    (type) => !type.startsWith('_') && !type.startsWith('system.')
+    (type) => !type.startsWith('_') && !type.startsWith('system.') && !type.startsWith('sanity.')
   ).sort()
 
   if (isPending) {
