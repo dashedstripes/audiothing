@@ -1,0 +1,20 @@
+.content-browser {
+  max-width: 100%;
+}
+
+.content-browser-header {
+  margin-bottom: 1.5rem;
+}
+
+.content-browser-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.content-browser-subtitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: #6b7280;
+}

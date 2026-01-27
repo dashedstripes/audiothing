@@ -1,22 +1,24 @@
-import {type SanityConfig} from '@sanity/sdk'
-import {SanityApp} from '@sanity/sdk-react'
-import {ExampleComponent} from './ExampleComponent'
+import { Suspense } from 'react'
+import { type SanityConfig } from '@sanity/sdk'
+import { SanityApp } from '@sanity/sdk-react'
+import { ContentBrowser } from './components/ContentBrowser'
+import { LoadingSpinner } from './components/LoadingSpinner'
 import './App.css'
 
 function App() {
-  // apps can access many different projects or other sources of data
   const sanityConfigs: SanityConfig[] = [
     {
-      projectId: '',
-      dataset: '',
+      projectId: 'n3ipr1xb',
+      dataset: 'production',
     }
   ]
 
   return (
     <div className="app-container">
-      <SanityApp config={sanityConfigs} fallback={<div>Loading...</div>}>
-        {/* add your own components here! */}
-        <ExampleComponent />
+      <SanityApp config={sanityConfigs} fallback={<LoadingSpinner label="Connecting to Sanity..." />}>
+        <Suspense fallback={<LoadingSpinner label="Loading content..." />}>
+          <ContentBrowser />
+        </Suspense>
       </SanityApp>
     </div>
   )
