@@ -1,0 +1,192 @@
+/* ==========================================================================
+   Portable Text Field
+   ========================================================================== */
+
+.portable-text-field {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-paper);
+  overflow: hidden;
+}
+
+.portable-text-field-invalid {
+  padding: var(--space-md);
+}
+
+.portable-text-field-error {
+  font-size: 0.875rem;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.portable-text-field-json {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  font-size: 0.75rem;
+  background: var(--color-paper-warm);
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  max-height: 200px;
+}
+
+/* ==========================================================================
+   Toolbar
+   ========================================================================== */
+
+.portable-text-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  background: var(--color-paper-warm);
+  border-bottom: 1px solid var(--color-border-light);
+  flex-wrap: wrap;
+}
+
+.portable-text-toolbar-group {
+  display: flex;
+  gap: 2px;
+}
+
+.portable-text-toolbar-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--color-border);
+  margin: 0 var(--space-xs);
+}
+
+.portable-text-toolbar-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--color-ink-light);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.portable-text-toolbar-button:hover {
+  background: var(--color-paper-cream);
+  color: var(--color-ink);
+}
+
+.portable-text-toolbar-button:active {
+  background: var(--color-border-light);
+}
+
+.portable-text-toolbar-button code {
+  font-size: 0.6875rem;
+  font-family: 'SF Mono', Monaco, monospace;
+}
+
+/* ==========================================================================
+   Editable Area
+   ========================================================================== */
+
+.portable-text-editable {
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: var(--space-md);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+  outline: none;
+}
+
+.portable-text-editable:focus {
+  background: var(--color-paper);
+}
+
+/* ==========================================================================
+   Block Styles
+   ========================================================================== */
+
+.pte-block {
+  margin-bottom: var(--space-sm);
+}
+
+.pte-block:last-child {
+  margin-bottom: 0;
+}
+
+.pte-paragraph {
+  margin: 0;
+}
+
+.pte-h1 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0 0 var(--space-sm);
+  color: var(--color-ink);
+}
+
+.pte-h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 0 0 var(--space-sm);
+  color: var(--color-ink);
+}
+
+.pte-h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0 0 var(--space-xs);
+  color: var(--color-ink);
+}
+
+.pte-h4 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0 0 var(--space-xs);
+  color: var(--color-ink);
+}
+
+.pte-blockquote {
+  margin: 0;
+  padding-left: var(--space-md);
+  border-left: 3px solid var(--color-accent);
+  color: var(--color-ink-muted);
+  font-style: italic;
+}
+
+.pte-list-item {
+  margin-left: var(--space-lg);
+}
+
+.pte-inline-code {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  font-size: 0.875em;
+  background: var(--color-paper-cream);
+  padding: 0.1em 0.3em;
+  border-radius: var(--radius-sm);
+  color: var(--color-ink-light);
+}
+
+/* Selection styling */
+.portable-text-editable ::selection {
+  background: var(--color-accent-glow);
+}
+
+/* Placeholder when empty */
+.portable-text-editable [data-slate-placeholder="true"] {
+  color: var(--color-ink-faded);
+  font-style: italic;
+}

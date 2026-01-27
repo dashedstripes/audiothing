@@ -1,0 +1,373 @@
+/* ==========================================================================
+   Document Editor - Slide-in Panel
+   ========================================================================== */
+
+.document-editor-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 24, 20, 0.3);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  animation: overlayFadeIn var(--duration-normal) var(--ease-out);
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.document-editor-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(520px, 90vw);
+  height: 100vh;
+  background: var(--color-paper);
+  box-shadow: var(--shadow-lifted), -8px 0 32px rgba(26, 24, 20, 0.1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  animation: panelSlideIn var(--duration-normal) var(--ease-out);
+}
+
+@keyframes panelSlideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.document-editor-header {
+  padding: var(--space-lg);
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-paper-warm);
+  flex-shrink: 0;
+}
+
+.document-editor-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.document-editor-type-badge {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-accent-dark);
+  background: var(--color-accent-glow);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(212, 168, 83, 0.2);
+}
+
+.document-editor-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.document-editor-close:hover {
+  background: var(--color-paper-cream);
+  color: var(--color-ink);
+}
+
+.document-editor-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.document-editor-id {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  word-break: break-all;
+}
+
+.document-editor-updated {
+  font-size: 0.75rem;
+  color: var(--color-ink-faded);
+}
+
+/* ==========================================================================
+   Actions Bar
+   ========================================================================== */
+
+.document-editor-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-paper);
+  flex-shrink: 0;
+}
+
+.editor-button {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.editor-button:hover:not(:disabled) {
+  background: var(--color-paper-cream);
+  border-color: var(--color-ink-faded);
+}
+
+.editor-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.editor-button-primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent-dark);
+  color: var(--color-ink);
+}
+
+.editor-button-primary:hover:not(:disabled) {
+  background: var(--color-accent-dark);
+}
+
+.document-editor-status {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   Fields Container
+   ========================================================================== */
+
+.document-editor-fields {
+  flex: 1;
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  overflow-y: auto;
+}
+
+.document-editor-empty,
+.document-editor-no-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-2xl);
+  color: var(--color-ink-muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   Individual Field Styles
+   ========================================================================== */
+
+.document-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.document-field-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-ink-light);
+}
+
+.document-field-input,
+.document-field-textarea {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--ease-out);
+  width: 100%;
+}
+
+.document-field-input:focus,
+.document-field-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-glow);
+}
+
+.document-field-textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+
+.document-field-input-null::placeholder {
+  color: var(--color-ink-faded);
+  font-style: italic;
+}
+
+/* Checkbox Field */
+.document-field-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+}
+
+.document-field-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.document-field-checkbox-label {
+  font-size: 0.875rem;
+  color: var(--color-ink);
+}
+
+/* Read-only Field (Arrays, Objects) */
+.document-field-readonly {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  background: var(--color-paper-warm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-light);
+}
+
+.document-field-badge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-info);
+  background: rgba(90, 122, 143, 0.1);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+}
+
+.document-field-count {
+  font-size: 0.8125rem;
+  color: var(--color-ink-muted);
+}
+
+.document-field-details {
+  width: 100%;
+  margin-top: var(--space-sm);
+}
+
+.document-field-details summary {
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.document-field-details summary:hover {
+  color: var(--color-ink);
+}
+
+.document-field-json {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  background: var(--color-paper);
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  margin-top: var(--space-sm);
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.document-field-unknown {
+  font-size: 0.875rem;
+  color: var(--color-ink-faded);
+  font-style: italic;
+}
+
+/* Loading State */
+.document-field-loading {
+  opacity: 0.6;
+}
+
+.document-field-skeleton {
+  height: 40px;
+  background: linear-gradient(
+    90deg,
+    var(--color-paper-cream) 0%,
+    var(--color-paper-warm) 50%,
+    var(--color-paper-cream) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--radius-sm);
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonPulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .document-editor-panel {
+    width: 100vw;
+  }
+
+  .document-editor-header,
+  .document-editor-actions,
+  .document-editor-fields {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+}

@@ -4,6 +4,7 @@ import { formatTypeName, formatDate, truncate } from '../utils/formatters'
 
 interface DocumentItemProps {
   handle: DocumentHandle
+  onClick?: (handle: DocumentHandle) => void
 }
 
 interface DocumentProjection {
@@ -14,7 +15,7 @@ interface DocumentProjection {
   description: string
 }
 
-export function DocumentItem({ handle }: DocumentItemProps) {
+export function DocumentItem({ handle, onClick }: DocumentItemProps) {
   const ref = useRef<HTMLLIElement>(null)
 
   const { data, isPending } = useDocumentProjection<DocumentProjection>({
@@ -29,6 +30,19 @@ export function DocumentItem({ handle }: DocumentItemProps) {
     ref,
   })
 
+  function handleClick() {
+    if (onClick) {
+      onClick(handle)
+    }
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      handleClick()
+    }
+  }
+
   if (isPending || !data) {
     return (
       <li ref={ref} className="document-item document-item-loading">
@@ -38,7 +52,15 @@ export function DocumentItem({ handle }: DocumentItemProps) {
   }
 
   return (
-    <li ref={ref} className="document-item">
+    <li
+      ref={ref}
+      className="document-item"
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
+      aria-label={`Edit ${data.title}`}
+    >
       <span className="document-item-type-badge">
         {formatTypeName(data._type)}
       </span>

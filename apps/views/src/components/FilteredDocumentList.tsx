@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { usePaginatedDocuments } from '@sanity/sdk-react'
+import { usePaginatedDocuments, type DocumentHandle } from '@sanity/sdk-react'
 import { DocumentItem } from './DocumentItem'
 import { Pagination } from './Pagination'
 import { formatTypeName } from '../utils/formatters'
@@ -9,11 +9,12 @@ import './DocumentList.css'
 interface FilteredDocumentListProps {
   documentType: string
   perspective: BrowserPerspective
+  onDocumentSelect?: (handle: DocumentHandle) => void
 }
 
 const PAGE_SIZE = 20
 
-export function FilteredDocumentList({ documentType, perspective }: FilteredDocumentListProps) {
+export function FilteredDocumentList({ documentType, perspective, onDocumentSelect }: FilteredDocumentListProps) {
   const {
     data: handles,
     hasNextPage,
@@ -61,7 +62,7 @@ export function FilteredDocumentList({ documentType, perspective }: FilteredDocu
               <li className="document-item document-item-loading">Loading...</li>
             }
           >
-            <DocumentItem handle={handle} />
+            <DocumentItem handle={handle} onClick={onDocumentSelect} />
           </Suspense>
         ))}
       </ul>

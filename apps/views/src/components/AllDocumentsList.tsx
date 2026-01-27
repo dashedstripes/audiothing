@@ -15,9 +15,10 @@ interface QueryResult {
 
 interface AllDocumentsListProps {
   perspective: BrowserPerspective
+  onDocumentSelect?: (handle: DocumentHandle) => void
 }
 
-export function AllDocumentsList({ perspective }: AllDocumentsListProps) {
+export function AllDocumentsList({ perspective, onDocumentSelect }: AllDocumentsListProps) {
   const [currentPage, setCurrentPage] = useState(1)
 
   // Reset pagination when perspective changes
@@ -92,7 +93,7 @@ export function AllDocumentsList({ perspective }: AllDocumentsListProps) {
               <li className="document-item document-item-loading">Loading...</li>
             }
           >
-            <DocumentItem handle={handle} />
+            <DocumentItem handle={handle} onClick={onDocumentSelect} />
           </Suspense>
         ))}
       </ul>
