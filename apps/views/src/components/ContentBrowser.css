@@ -1,20 +1,87 @@
+/* ==========================================================================
+   Content Browser - Main Layout
+   ========================================================================== */
+
 .content-browser {
   max-width: 100%;
+  animation: browserReveal var(--duration-slow) var(--ease-out) both;
+  animation-delay: 100ms;
 }
 
+@keyframes browserReveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Header - Editorial Masthead Style
+   ========================================================================== */
+
 .content-browser-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-border-light);
+  position: relative;
+}
+
+/* Decorative line accent */
+.content-browser-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: var(--color-accent);
 }
 
 .content-browser-title {
-  margin: 0 0 0.25rem;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #111827;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-sm);
+
+  /* Optical adjustments */
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' 32;
+}
+
+/* Stylized ampersand or accent on first letter */
+.content-browser-title::first-letter {
+  font-weight: 500;
+  color: var(--color-accent-dark);
 }
 
 .content-browser-subtitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-ink-muted);
   margin: 0;
-  font-size: 0.9375rem;
-  color: #6b7280;
+  letter-spacing: 0.01em;
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .content-browser-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-md);
+  }
+
+  .content-browser-header::after {
+    width: 60px;
+    height: 2px;
+  }
 }

@@ -1,90 +1,201 @@
+/* ==========================================================================
+   Example Component - Profile Card
+   ========================================================================== */
+
 .example-container {
-  background-color: white;
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+
+  /* Entrance animation */
+  animation: cardReveal var(--duration-slow) var(--ease-out) both;
 }
+
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Decorative corner accent */
+.example-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, transparent 50%, var(--color-accent-glow) 50%);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Avatar Section
+   ========================================================================== */
 
 .example-avatar-container {
   position: relative;
-  margin-block-end: 1rem;
+  margin-block-end: var(--space-lg);
+  display: inline-block;
 }
 
 @keyframes wave {
-  0% {
+  0%, 100% {
     rotate: 0deg;
+    filter: blur(0);
   }
   2% {
     rotate: 20deg;
-    filter: blur(1px);
+    filter: blur(0.5px);
   }
   4% {
     rotate: 0deg;
   }
   6% {
-    rotate: -20deg;
+    rotate: -18deg;
   }
   8% {
     rotate: 0deg;
   }
   10% {
-    rotate: 20deg;
+    rotate: 16deg;
   }
   12% {
     rotate: 0deg;
   }
   14% {
-    rotate: -20deg;
+    rotate: -14deg;
   }
   16% {
     rotate: 0deg;
-    filter: blur(0);
   }
 }
 
-.example-avatar-container:after {
-  content: '👋';
+.example-avatar-container::after {
+  content: '✦';
   position: absolute;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
+  color: var(--color-accent);
   display: flex;
   align-items: center;
-  justify-container: center;
+  justify-content: center;
   inset-inline-start: 0;
   inset-block-start: 0;
-  translate: -25% -25%;
+  translate: -30% -30%;
   transform-origin: 100% 100%;
-  animation: wave 4s infinite linear;
+  animation: wave 5s infinite ease-in-out;
+  animation-delay: 1s;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .example-avatar-container:after {
+  .example-avatar-container::after {
     animation: none;
   }
 }
 
 .example-avatar {
-  inline-size: 4rem;
+  inline-size: 5rem;
   aspect-ratio: 1;
   border-radius: 50%;
+  border: 3px solid var(--color-paper-cream);
+  box-shadow: var(--shadow-medium);
+  object-fit: cover;
+  transition: transform var(--duration-normal) var(--ease-out);
 }
+
+.example-avatar:hover {
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
 
 .example-heading {
-  color: #333;
-  margin-top: 0;
-  font-size: 2rem;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-sm);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
-p {
-  color: #666;
+.example-container p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-ink-muted);
   line-height: 1.6;
+  margin: 0 0 var(--space-md);
 }
+
+.example-container p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Code Hint Block
+   ========================================================================== */
 
 .code-hint {
-  background-color: #f5f5f5;
-  padding: 1rem;
-  border-radius: 4px;
-  font-family: monospace;
-  margin-top: 1.5rem;
-  border-left: 3px solid #e0e0e0;
-  line-height: 1.5;
+  background-color: var(--color-paper-warm);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-size: 0.8125rem;
+  color: var(--color-ink-light);
+  margin-top: var(--space-xl);
+  border-left: 3px solid var(--color-accent);
+  line-height: 1.6;
+  overflow-x: auto;
+
+  /* Syntax-like styling */
+  position: relative;
+}
+
+.code-hint::before {
+  content: 'Code';
+  position: absolute;
+  top: calc(-0.5em - 1px);
+  left: var(--space-md);
+  background-color: var(--color-paper-warm);
+  padding: 0 var(--space-xs);
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-ink-faded);
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .example-container {
+    padding: var(--space-xl);
+  }
+
+  .example-heading {
+    font-size: 1.5rem;
+  }
+
+  .example-avatar {
+    inline-size: 4rem;
+  }
+
+  .code-hint {
+    padding: var(--space-md);
+    font-size: 0.75rem;
+  }
 }

@@ -1,45 +1,143 @@
+/* ==========================================================================
+   Pagination - Navigation Controls
+   ========================================================================== */
+
 .pagination {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
-  border-top: 1px solid #e5e7eb;
-  background-color: #fafafa;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-xl);
+  background-color: var(--color-paper-warm);
+  border-top: 1px solid var(--color-border-light);
 }
 
+/* ==========================================================================
+   Pagination Buttons
+   ========================================================================== */
+
 .pagination-button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  background-color: white;
-  color: #374151;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-paper);
+  color: var(--color-ink-light);
+  font-family: var(--font-body);
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+
+  user-select: none;
 }
 
 .pagination-button:hover:not(:disabled) {
-  background-color: #f3f4f6;
-  border-color: #9ca3af;
+  background-color: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-paper);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+.pagination-button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-subtle);
 }
 
 .pagination-button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
+  background-color: var(--color-paper-cream);
 }
+
+/* ==========================================================================
+   Arrow Icons
+   ========================================================================== */
 
 .pagination-arrow {
-  font-size: 1rem;
+  display: inline-flex;
+  font-size: 1.125rem;
+  transition: transform var(--duration-fast) var(--ease-out);
 }
 
+/* Subtle arrow animation on hover */
+.pagination-button:hover:not(:disabled) .pagination-arrow--prev {
+  transform: translateX(-2px);
+}
+
+.pagination-button:hover:not(:disabled) .pagination-arrow--next {
+  transform: translateX(2px);
+}
+
+/* ==========================================================================
+   Page Info
+   ========================================================================== */
+
 .pagination-info {
-  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-width: 120px;
+  justify-content: center;
+  font-family: var(--font-body);
   font-size: 0.875rem;
-  min-width: 100px;
-  text-align: center;
+  color: var(--color-ink-muted);
+}
+
+/* Current page number highlight */
+.pagination-info strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* ==========================================================================
+   Loading State
+   ========================================================================== */
+
+.pagination--loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .pagination {
+    padding: var(--space-md);
+    gap: var(--space-md);
+  }
+
+  .pagination-button {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.8125rem;
+  }
+
+  .pagination-info {
+    min-width: 100px;
+    font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    flex-wrap: wrap;
+  }
+
+  .pagination-button span:not(.pagination-arrow) {
+    display: none;
+  }
+
+  .pagination-button {
+    padding: var(--space-sm);
+  }
 }
