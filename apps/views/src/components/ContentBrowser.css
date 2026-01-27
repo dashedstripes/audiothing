@@ -71,6 +71,19 @@
 }
 
 /* ==========================================================================
+   Filters Row
+   ========================================================================== */
+
+.content-browser-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+/* ==========================================================================
    Responsive Adjustments
    ========================================================================== */
 
@@ -83,5 +96,10 @@
   .content-browser-header::after {
     width: 60px;
     height: 2px;
+  }
+
+  .content-browser-filters {
+    flex-direction: column;
+    gap: var(--space-md);
   }
 }

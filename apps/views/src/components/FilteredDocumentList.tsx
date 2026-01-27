@@ -3,15 +3,17 @@ import { usePaginatedDocuments } from '@sanity/sdk-react'
 import { DocumentItem } from './DocumentItem'
 import { Pagination } from './Pagination'
 import { formatTypeName } from '../utils/formatters'
+import type { BrowserPerspective } from './PerspectiveFilter'
 import './DocumentList.css'
 
 interface FilteredDocumentListProps {
   documentType: string
+  perspective: BrowserPerspective
 }
 
 const PAGE_SIZE = 20
 
-export function FilteredDocumentList({ documentType }: FilteredDocumentListProps) {
+export function FilteredDocumentList({ documentType, perspective }: FilteredDocumentListProps) {
   const {
     data: handles,
     hasNextPage,
@@ -26,6 +28,7 @@ export function FilteredDocumentList({ documentType }: FilteredDocumentListProps
     documentType,
     pageSize: PAGE_SIZE,
     orderings: [{ field: '_updatedAt', direction: 'desc' }],
+    perspective,
   })
 
   if (handles.length === 0 && !isPending) {

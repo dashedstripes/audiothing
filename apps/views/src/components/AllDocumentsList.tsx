@@ -1,8 +1,9 @@
-import { Suspense, useState, useMemo } from 'react'
+import { Suspense, useState, useMemo, useEffect } from 'react'
 import { useQuery, type DocumentHandle } from '@sanity/sdk-react'
 import { DocumentItem } from './DocumentItem'
 import { Pagination } from './Pagination'
 import { LoadingSpinner } from './LoadingSpinner'
+import type { BrowserPerspective } from './PerspectiveFilter'
 import './DocumentList.css'
 
 const PAGE_SIZE = 20
@@ -12,8 +13,17 @@ interface QueryResult {
   total: number
 }
 
-export function AllDocumentsList() {
+interface AllDocumentsListProps {
+  perspective: BrowserPerspective
+}
+
+export function AllDocumentsList({ perspective }: AllDocumentsListProps) {
   const [currentPage, setCurrentPage] = useState(1)
+
+  // Reset pagination when perspective changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [perspective])
 
   const start = (currentPage - 1) * PAGE_SIZE
   const end = start + PAGE_SIZE
@@ -24,6 +34,7 @@ export function AllDocumentsList() {
       "total": count(*[!(_id in path("_.**")) && !(_type match "system.*")])
     }`,
     params: { start, end },
+    perspective,
   })
 
   const handles: DocumentHandle[] = useMemo(() => {

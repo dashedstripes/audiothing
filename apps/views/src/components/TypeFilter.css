@@ -3,7 +3,6 @@
    ========================================================================== */
 
 .type-filter {
-  margin-bottom: var(--space-xl);
   animation: filterReveal var(--duration-slow) var(--ease-out) both;
   animation-delay: 200ms;
 }
