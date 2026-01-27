@@ -4,14 +4,16 @@ import { TypeFilter } from './TypeFilter'
 import { PerspectiveFilter, type BrowserPerspective } from './PerspectiveFilter'
 import { FilteredDocumentList } from './FilteredDocumentList'
 import { AllDocumentsList } from './AllDocumentsList'
-import { DocumentEditor } from './DocumentEditor'
 import { LoadingSpinner } from './LoadingSpinner'
 import './ContentBrowser.css'
 
-export function ContentBrowser() {
+interface ContentBrowserProps {
+  onDocumentSelect: (handle: DocumentHandle | null) => void
+}
+
+export function ContentBrowser({ onDocumentSelect }: ContentBrowserProps) {
   const [selectedType, setSelectedType] = useState<string | null>(null)
   const [selectedPerspective, setSelectedPerspective] = useState<BrowserPerspective>('raw')
-  const [selectedDocument, setSelectedDocument] = useState<DocumentHandle | null>(null)
 
   return (
     <div className="content-browser">
@@ -36,23 +38,16 @@ export function ContentBrowser() {
         {selectedType === null ? (
           <AllDocumentsList
             perspective={selectedPerspective}
-            onDocumentSelect={setSelectedDocument}
+            onDocumentSelect={onDocumentSelect}
           />
         ) : (
           <FilteredDocumentList
             documentType={selectedType}
             perspective={selectedPerspective}
-            onDocumentSelect={setSelectedDocument}
+            onDocumentSelect={onDocumentSelect}
           />
         )}
       </Suspense>
-
-      {selectedDocument && (
-        <DocumentEditor
-          handle={selectedDocument}
-          onClose={() => setSelectedDocument(null)}
-        />
-      )}
     </div>
   )
 }
