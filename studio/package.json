@@ -15,12 +15,13 @@
     "sanity"
   ],
   "dependencies": {
+    "@sanity/agent-context": "^0.0.1",
     "@sanity/assist": "^5.0.4",
     "@sanity/document-internationalization": "^4.1.1",
-    "@sanity/vision": "^5.5.0",
+    "@sanity/vision": "^5.9.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "sanity": "^5.5.0",
+    "sanity": "^5.9.0",
     "styled-components": "^6.1.18"
   },
   "devDependencies": {

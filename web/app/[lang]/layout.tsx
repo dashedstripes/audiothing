@@ -7,6 +7,7 @@ import { SanityLive } from "@/sanity/live";
 import { VisualEditing } from "next-sanity/visual-editing";
 import { draftMode } from "next/headers";
 import { DisableDraftMode } from "@/components/disable-draft-mode";
+import { ChatButton } from "@/components/chat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,6 +46,7 @@ export default async function RootLayout({
           </>
         )}
         <Footer />
+        <ChatButton />
       </body>
     </html>
   );

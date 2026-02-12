@@ -8,6 +8,7 @@ import {
   type DocumentHandle,
 } from '@sanity/sdk-react'
 import { formatTypeName, formatDate } from '../utils/formatters'
+import { sortFieldsBySchema } from '../schemaConfig'
 import { LoadingSpinner } from './LoadingSpinner'
 import { PortableTextField } from './PortableTextField'
 import './DocumentEditor.css'
@@ -63,9 +64,10 @@ function DocumentEditorContent({ handle, onClose }: DocumentEditorProps) {
     }
   }
 
-  // Get editable fields (exclude system fields)
-  const editableFields = Object.entries(document).filter(
-    ([key]) => !key.startsWith('_')
+  // Get editable fields (exclude system fields) and sort by schema order
+  const editableFields = sortFieldsBySchema(
+    Object.entries(document).filter(([key]) => !key.startsWith('_')),
+    handle.documentType
   )
 
   return (

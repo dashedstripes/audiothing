@@ -8,6 +8,7 @@ import {workflows} from './plugins/workflows'
 import {documentInternationalization} from '@sanity/document-internationalization'
 import {feedback} from './plugins/feedback'
 import linear from './plugins/feedback/integrations/linear'
+import {agentContextPlugin} from '@sanity/agent-context/studio'
 
 export default defineConfig({
   name: 'default',
@@ -19,6 +20,7 @@ export default defineConfig({
   plugins: [
     structureTool(),
     visionTool(),
+    agentContextPlugin(),
     assist({
       translate: {
         document: {
