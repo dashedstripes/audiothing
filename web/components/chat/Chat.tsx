@@ -156,9 +156,7 @@ function ChatInner(props: ChatProps) {
           </div>
 
           <div>
-            <h3 className="text-sm font-medium text-white">
-              AudioThing Assistant
-            </h3>
+            <h3 className="text-sm font-medium text-white">AudAIoThing</h3>
             <p className="text-xs text-neutral-400">Ask me anything</p>
           </div>
         </div>
