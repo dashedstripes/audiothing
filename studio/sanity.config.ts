@@ -48,4 +48,8 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+
+  advancedVersionControl: {
+    enabled: true,
+  },
 })
